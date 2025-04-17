@@ -38,7 +38,8 @@ p {
     font-size: 15px;
 }
 
-#search:placeholder-shown {
+#search::placeholder {
+    color: #ffffff;
     font-style: italic;
 }
 
@@ -46,6 +47,7 @@ p {
     border-color: #A7FF9F;
     box-shadow: 0 0 10px 3px rgba(167, 255, 159, 1);
 }
+
 
 button {
     background-color: rgb(4 58 9);
