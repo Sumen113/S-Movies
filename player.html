@@ -4,29 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>szvyflix</title>
+    <title>S-Movies</title>
     <link rel="stylesheet" href="/styles.css">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+    <style>
+      html, body {
+        overflow: hidden;
+        height: 100%;
+      }
+    </style>
+    
   </head>
   <body>
-    <nav>
-      <h1>szvyflix</h1>
-      <div>
-        <a href="index.html">Home</a>
-        <a href="movies.html">Movies</a>
-      </div>
-    </nav>
     <main>
       <div>
-        <label for="player-source">choose a movie source:</label>
-        <select id="player-source">
-          <option value="streamlink">streamlink (default)</option>
-          <option value="embed.su">embed.su</option>
+        <div style="height: 2vh;"></div>
+        <label for="player-source" style="position: relative; z-index: 50;">
+          choose a movie source:
+        </label>
+        <select id="player-source" style="position: relative; z-index: 50;">
           <option value="moviesapi.club">moviesapi.club</option>
-          <option value="vidbinge">vidbinge</option>
+          <option value="streamlink">streamlink</option>
+          <option value="embed.su">embed.su</option>
           <option value="vidsrc">vidsrc</option>
           <option value="2embed">2embed</option>
         </select>
+        
       </div>
       <div id="player-container">
         <h1>Loading...</h1>
@@ -51,8 +54,6 @@
             iframe.src = `https://embed.su/embed/movie/${tmdbId}`;
           } else if (source === "moviesapi.club") {
             iframe.src = `https://moviesapi.club/movie/${tmdbId}`;
-          } else if (source === "vidbinge") {
-            iframe.src = `https://vidbinge.dev/embed/movie/${tmdbId}`;
           } else if (source === "vidsrc") {
             iframe.src = `https://vidsrc.net/embed/${tmdbId}`;
           } else if (source === "2embed") {
@@ -66,7 +67,7 @@
         }
       }
 
-      loadPlayer("streamlink");
+      loadPlayer("moviesapi.club");
 
       playerSource.addEventListener("change", (e) => {
         loadPlayer(e.target.value);

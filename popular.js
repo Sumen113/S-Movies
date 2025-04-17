@@ -4,6 +4,9 @@ const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 
 const resultsContainer = document.querySelector(".results");
 const nextPageButton = document.getElementById("next-page");
+const lastPageButton = document.getElementById("last-page");
+const searchInput = document.getElementById("search");
+const discoverButton = document.getElementById("discover");
 
 let currentPage = 1;
 
@@ -16,6 +19,34 @@ nextPageButton.addEventListener("click", () => {
   fetchPopularMovies(currentPage);
 });
 
+lastPageButton.addEventListener("click", () => {
+  if (currentPage > 1) {
+    currentPage--;
+    fetchPopularMovies(currentPage);
+  }
+});
+
+discoverButton.addEventListener("click", () => {
+  const query = searchInput.value.trim();
+  if (query) {
+    searchMovies(query);
+  } else {
+    alert("Please enter a search term.");
+  }
+});
+
+searchInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") {
+    const query = searchInput.value.trim();
+    if (query) {
+      searchMovies(query);
+    } else {
+      alert("Please enter a search term.");
+    }
+  }
+});
+
+
 async function fetchPopularMovies(page) {
   try {
     const response = await fetch(
@@ -26,7 +57,23 @@ async function fetchPopularMovies(page) {
     displayMovies(filteredMovies);
   } catch (error) {
     console.error("Error fetching movies:", error);
-    alert("Failed to fetch movies. Please try again later.");
+    alert("You are already on the first page");
+  }
+}
+
+async function searchMovies(query) {
+  try {
+    const response = await fetch(
+      `${API_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`
+    );
+    const data = await response.json();
+    const filteredMovies = data.results.filter((movie) => !movie.adult);
+    displayMovies(filteredMovies);
+    nextPageButton.style.display = "none"; // hide "next page" during search
+    lastPageButton.style.display = "none"; // hide "next page" during search
+  } catch (error) {
+    console.error("Error searching movies:", error);
+    alert("Failed to search movies. Please try again later.");
   }
 }
 
@@ -46,16 +93,13 @@ function displayMovies(movies) {
     const movieTitle = document.createElement("h2");
     movieTitle.textContent = movie.title;
 
-    const watchButton = document.createElement("button");
-    watchButton.textContent = "Watch Now";
-    watchButton.classList.add("watch-btn");
-    watchButton.addEventListener("click", () => {
+
+    movieDiv.addEventListener("click", () => {
       window.location.href = `player.html?tmdbid=${movie.id}`;
     });
 
     movieDiv.appendChild(movieImage);
     movieDiv.appendChild(movieTitle);
-    movieDiv.appendChild(watchButton);
 
     resultsContainer.appendChild(movieDiv);
   });
