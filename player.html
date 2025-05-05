@@ -23,11 +23,12 @@
           choose a movie source:
         </label>
         <select id="player-source" style="position: relative; z-index: 50;">
-          <option value="moviesapi.club">moviesapi.club</option>
-          <option value="streamlink">streamlink</option>
-          <option value="embed.su">embed.su</option>
-          <option value="vidsrc">vidsrc</option>
           <option value="2embed">2embed</option>
+          <option value="moviesapi.club">netembed</option>
+          <option value="streamlink">superembed</option>
+          <option value="embed.su">embed.su</option>
+          <option value="vidsrc">player.embed</option>
+          <option value="mkvembed">mkvembed</option>
         </select>
         
       </div>
@@ -49,15 +50,17 @@
           iframe.allowfullscreen = true;
 
           if (source === "streamlink") {
-            iframe.src = `https://www.vidlink.pro/movie/${tmdbId}?autoplay=false`;
+            iframe.src = `https://multiembed.mov/?video_id=${tmdbId}&tmdb=1`;
           } else if (source === "embed.su") {
             iframe.src = `https://embed.su/embed/movie/${tmdbId}`;
           } else if (source === "moviesapi.club") {
-            iframe.src = `https://moviesapi.club/movie/${tmdbId}`;
+            iframe.src = `https://play.netembed.co/movie.php?id=${tmdbId}`;
+          } else if (source === "mkvembed") {
+            iframe.src = `https://mkvembed.com/embed/${tmdbId}`;
           } else if (source === "vidsrc") {
-            iframe.src = `https://vidsrc.net/embed/${tmdbId}`;
+            iframe.src = `https://player.embed-api.stream/?id=${tmdbId}`;
           } else if (source === "2embed") {
-            iframe.src = `https://www.2embed.skin/embed/${tmdbId}`;
+            iframe.src = `https://2embed.top/embed/movie/${tmdbId}`;
           }
 
           playerContainer.innerHTML = "";
@@ -67,7 +70,7 @@
         }
       }
 
-      loadPlayer("moviesapi.club");
+      loadPlayer("2embed");
 
       playerSource.addEventListener("change", (e) => {
         loadPlayer(e.target.value);
