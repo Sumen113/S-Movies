@@ -23,12 +23,11 @@
           choose a movie source:
         </label>
         <select id="player-source" style="position: relative; z-index: 50;">
-          <option value="2embed">2embed</option>
+          <option value="2embed">moviesapi</option>
           <option value="moviesapi.club">netembed</option>
-          <option value="streamlink">superembed</option>
+          <option value="streamlink">multiembed</option>
           <option value="embed.su">embed.su</option>
           <option value="vidsrc">player.embed</option>
-          <option value="mkvembed">mkvembed</option>
         </select>
         
       </div>
@@ -60,7 +59,7 @@
           } else if (source === "vidsrc") {
             iframe.src = `https://player.embed-api.stream/?id=${tmdbId}`;
           } else if (source === "2embed") {
-            iframe.src = `https://2embed.top/embed/movie/${tmdbId}`;
+            iframe.src = `https://moviesapi.to/movie/${tmdbId}`;
           }
 
           playerContainer.innerHTML = "";
